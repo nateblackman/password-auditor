@@ -8,7 +8,7 @@ This project is a Python-based cybersecurity tool designed to evaluate password 
 - Password strength analysis
 - Detection of weak patterns and dictionary words
 - Secure SHA-256 password hashing
-- Offline breach password checking
+- Real-time breach password checking via HIBP API
 - JSON security report generation
 
 ---
