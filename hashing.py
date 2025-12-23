@@ -1,16 +1,26 @@
 import hashlib
+import requests
 
-BREACH_FILE = "breached_passwords.txt"
+HIBP_API_URL = "https://api.pwnedpasswords.com/range/"
 
-def hash_password(password):
-    """Hashes the password using SHA-256."""
-    return hashlib.sha256(password.encode()).hexdigest()
+def hash_password_sha1(password):
+    return hashlib.sha1(password.encode()).hexdigest().upper()
 
-def check_breach(password_hash):
-    """Checks if the hashed password is in the breached passwords file."""
-    try:
-        with open(BREACH_FILE, "r") as f:
-            breached_hashes = f.read().splitlines()
-        return password_hash in breached_hashes
-    except FileNotFoundError:
+def check_breach(password):
+    sha1_hash = hash_password_sha1(password)
+    prefix = sha1_hash[:5]
+    suffix = sha1_hash[5:]
+
+    response = requests.get(HIBP_API_URL + prefix)
+
+    if response.status_code != 200:
         return False
+
+    hashes = response.text.splitlines()
+
+    for line in hashes:
+        hash_suffix, count = line.split(":")
+        if hash_suffix == suffix:
+            return True
+
+    return False

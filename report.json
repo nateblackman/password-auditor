@@ -1,5 +1,10 @@
 {
-    "strength": "Strong",
-    "issues": [],
-    "breached": false
+    "strength": "Weak",
+    "issues": [
+        "Password is too short; it should be at least 12 characters long.",
+        "Password should include both uppercase and lowercase letters.",
+        "Password should include at least one special character.",
+        "Password should not contain common words like 'password'."
+    ],
+    "breached": true
 }

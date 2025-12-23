@@ -19,7 +19,7 @@ def generate_report(password, analysis, breached):
         output += "No weaknesses detected\n"
 
     if breached:
-        output += "\n⚠️ Password found in known breach database\n"
+        output += "\n❌ Password found in known breach database\n"
     else:
         output += "\n✅ Password not found in breach database\n"
 
